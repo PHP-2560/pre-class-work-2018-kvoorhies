@@ -1,6 +1,5 @@
 # pre-class
 
-
 Make sure you commit this often with meaningfull messages. 
 
 ### Background
@@ -20,7 +19,13 @@ then this results in 10 exponentially distributed numbers with a rate \(\lambda=
 
 1. Generate 200 random values from the standard exponential distribution and store them in a vector `exp.draws.1`.  Find the mean and standard deviation of `exp.draws.1`.
 
+exp.draws.1 <- rexp(n=200)
+mean(exp.draws.1)
+sd(exp.draws.1)
+
 2. Repeat, but change the rate to 0.2, 5, 7.3 and 10, storing the results in vectors called  `exp.draws.0.2`,  `exp.draws.5`,  `exp.draws.7.3` and  `exp.draws.10`. 
+
+
 
 3. The function `plot()` is the generic function in R for the visual display of data. `hist()` is a function that takes in and bins data as a side effect. To use this function, we must first specify what we'd like to plot.
     a. Use the `hist()` function to produce a histogram of your standard exponential distribution. 
