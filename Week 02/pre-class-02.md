@@ -81,10 +81,37 @@ For each plot, explain in words what's going on.
 
 5. R's capacity for data and computation is large to what was available 10 years ago. 
     a. To show this, generate 1.1 million numbers from the standard exponential distribution and store them in a vector called `big.exp.draws.1`. Calculate the mean and standard deviation.
+    
+    big.exp.draws.1 <- rexp(n=1100000)
+    mean(big.exp.draws.1)
+    sd(big.exp.draws.1)
+    
     b. Plot a histogram of `big.exp.draws.1`.  Does it match the function \(1-e^{-x}\)?  Should it? 
+    
+    hist(big.exp.draws.1)
+   #I think it should be close to matching
+   
     c. Find the mean of all of the entries in `big.exp.draws.1` which are strictly greater than 1. You may need to first create a new vector to identify which elements satisfy this.
+    gt1_vec <- big.exp.draws.1[big.exp.draws.1 > 1]
+    
+    min(gt1_vec)
+    max(gt1_vec)
+    
     d. Create a matrix, `big.exp.draws.1.mat`, containing the the values in 
 `big.exp.draws.1`, with 1100 rows and 1000 columns. Use this matrix as the input to the `hist()` function and save the result to a variable of your choice. What happens to your data?
+
+    big.exp.draws.1.mat<- matrix(big.exp.draws.1, nrow=1100,ncol=1000)
+    hist_var1<-hist(big.exp.draws.1.mat)
+    #looks the same as the previous histogram
+
     e. Calculate the mean of the 371st column of `big.exp.draws.1.mat`.
+    
+    mean(big.exp.draws.1.mat[,371])
+    
     f. Now, find the means of all 1000 columns of `big.exp.draws.1.mat` simultaneously. Plot the histogram of column means.  Explain why its shape does not match the histogram in problem 5b).
    
+   colMeanBigExp<- colMeans(big.exp.draws.1.mat,na.rm=FALSE, dims=1)
+
+   hist(colMeanBigExp)
+   
+  # the shape of 5f does not match the shape of 5b because we are now looking at the means.  # It makes sense that it would be more like a bell curve in 5f, because the mean of the #columns should more often be close to the overall mean rather than further away from the #over all mean. Additionally, column means further from the overall mean will be either #larger or smaller than the mean. Since they can be larger or smaller, we expect more of a #bell curve rather than a left or right skew.
