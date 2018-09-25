@@ -6,12 +6,17 @@ We will work with the dataset called gapminder, this is a cleaned up version fro
 install.packages("gapminder")
 library(dplyr)
 library(gapminder)
+library(dplyr)
 gapminder = gapminder # dataset is called gapminder
 ```
 
 1. How many unique countries are represented per continent?
 ```{r}
+View(gapminder)
 
+gapminder %>%
+group_by(continent) %>%
+summarise(n_distinct(country))
 
 ```
 
@@ -19,7 +24,11 @@ gapminder = gapminder # dataset is called gapminder
 2. Which European nation had the lowest GDP per capita in 1997?
 ```{r}
 
-
+gapminder %>%
+  filter(continent == "Europe") %>%
+  filter(year ==1997) %>%
+  arrange(gdpPercap)  %>%
+  
 ```
 
 
