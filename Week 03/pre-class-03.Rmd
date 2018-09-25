@@ -28,7 +28,8 @@ gapminder %>%
   filter(continent == "Europe") %>%
   filter(year ==1997) %>%
   arrange(gdpPercap)  %>%
-  
+  filter(gdpPercap == first(gdpPercap)) %>%
+  select(country)
 ```
 
 
