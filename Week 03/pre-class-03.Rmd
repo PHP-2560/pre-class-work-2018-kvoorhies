@@ -18,6 +18,13 @@ gapminder %>%
 group_by(continent) %>%
 summarise(n_distinct(country))
 
+# unique countries by continent: 
+# Africa 52
+# Americas 25
+# Asia  33
+# Europe 30
+# Oceania 2
+
 ```
 
 
@@ -30,20 +37,41 @@ gapminder %>%
   arrange(gdpPercap)  %>%
   filter(gdpPercap == first(gdpPercap)) %>%
   select(country)
+
+#European nation w/ the lowest GDP per capita in 1997: Albania
 ```
 
 
 3. According to the data available, what was the average life expectancy across each continent in the 1980s?
 ```{r}
+gapminder %>%
+  filter(year >= 1980 & year <=1989) %>%
+  group_by(continent) %>%
+  summarise(mean(lifeExp))
 
-
+# mean life expectanct by continent in the 1980s:
+# Africa               52.5
+# Americas             67.2
+# Asia                 63.7
+# Europe               73.2
+# Oceania              74.8
 ```
 
 
 4. What 5 countries have the highest total GDP over all years combined?
 ```{r}
+gapminder %>%
+  group_by(country) %>%
+  summarise(gdpSum=sum(gdpPercap)) %>%
+  arrange(desc(gdpSum))%>%
+  print(n=5)
 
-
+# 5 countries with highesttotal GDP
+# Kuwait        783995.
+# Switzerland   324892.
+# Norway        320968.
+# United States 315134.
+# Canada        268929.
 ```
 
 
