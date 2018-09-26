@@ -145,8 +145,16 @@ gapminder %>%
 
 8.  Which three countries have had the most consistent population estimates (i.e. lowest standard deviation) across the years of available data?
 ```{r}
+gapminder %>%
+  group_by(country) %>%
+  summarise(popSD = sd(pop)) %>%
+  arrange(popSD)
 
+# 3 countries w/ most consistent pop. est.
 
+# Sao Tome and Principe  45906.
+# Iceland                48542.
+# Montenegro             99738.
 ```
 
 
