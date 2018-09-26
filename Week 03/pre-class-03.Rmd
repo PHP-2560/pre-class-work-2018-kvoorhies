@@ -163,12 +163,16 @@ gapminder %>%
 
 gm1992<- filter(gapminder, year == 1992) 
   gm1992
+  
 #gm1992 is a tibble
 ```
 
 
 10.  Which observations indicate that the population of a country has decreased from the previous year and the life expectancy has increased from the previous year? See the vignette on window functions.
 ```{r}
-
+gapminder %>%
+  group_by(country) %>%
+  arrange(country, year) %>%
+  filter(pop < lag(pop) & lifeExp > lag(lifeExp))
 
 ```
