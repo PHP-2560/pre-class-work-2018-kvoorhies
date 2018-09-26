@@ -111,8 +111,23 @@ print(n=22)
 
 6. What 10 countries have the strongest correlation (in either direction) between life expectancy and per capita GDP?
 ```{r}
-
-
+gapminder %>% 
+  group_by(country) %>%
+  summarise(corr = cor(lifeExp, gdpPercap)) %>%
+  arrange(desc(abs(corr))) %>%
+  print(n=10)
+  
+# top 10 correlations by country
+# France         0.996
+# Austria        0.993
+# Belgium        0.993
+# Norway         0.992
+# Oman           0.991
+# United Kingdom 0.990
+# Italy          0.990
+# Israel         0.988
+# Denmark        0.987
+# Australia      0.986
 ```
 
 
