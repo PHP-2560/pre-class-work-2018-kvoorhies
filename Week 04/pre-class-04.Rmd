@@ -19,10 +19,24 @@ print(i)
 ### Question 2:
 
 A.  Using a loop, add all the integers between 0 and 1000.
-
+x=0
+for(i in 0:1000){
+x=x+i
+}
+print(x)
 B. Now, add all the EVEN integers between 0 and 1000 (hint: use seq())
-
+?seq
+y=0
+for(i in seq(0,1000,by=2)){
+y=y+i
+}
+print(y)
 C. Now, repeat A and B WITHOUT using a loop.
+
+##A
+sum(seq(0,1000))
+##B
+sum(seq(0,1000,by=2))
 
 ### Question 3:
 
