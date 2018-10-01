@@ -10,6 +10,12 @@ Make sure you commit this often with meaningful messages.
 
 Using a loop, print the integers from 1 to 50. 
 
+for(i in 1:50)
+{
+print(i)
+}
+
+
 ### Question 2:
 
 A.  Using a loop, add all the integers between 0 and 1000.
