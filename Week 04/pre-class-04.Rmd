@@ -1,6 +1,6 @@
 # pre-class
 
-
+library(dplyr)
 Make sure you commit this often with meaningful messages. 
 
 
@@ -21,16 +21,18 @@ print(i)
 A.  Using a loop, add all the integers between 0 and 1000.
 x=0
 for(i in 0:1000){
-x=x+i
-}
+    x=x+i
+  }
 print(x)
+
 B. Now, add all the EVEN integers between 0 and 1000 (hint: use seq())
-?seq
+
 y=0
 for(i in seq(0,1000,by=2)){
-y=y+i
-}
+    y=y+i
+  }
 print(y)
+
 C. Now, repeat A and B WITHOUT using a loop.
 
 ##A
@@ -56,4 +58,38 @@ The response to each question should be an integer between 1 and 5. Obviously, w
 
 A. Using a loop, create a new dataframe called survey.clean where all the invalid values (those that are not integers between 1 and 5) are set to NA.
 
+#assigning old dataframe to new dataframe
+survey.clean<-survey
+# if value is greater than 5 or less than 1, it is replaced with NA in the new dataframe
+for(i in 1:nrow(survey)){
+  for(j in 2:ncol(survey)){
+    if(as.integer(survey[i,j]) > 5 | as.integer(survey[i,j])<1){
+      survey.clean[i,j]<- "NA"
+      }
+      else{
+      survey.clean[i,j]<-survey[i,j]
+        }
+    }
+}
+
+print(survey.clean)
+
+
 B. Now, again using a loop, add a new column to the dataframe called “invalid.answers” that indicates, for each participant, how many bad answers they gave.
+
+# filling invalid.answers with "empty" for now -- this will be replaced
+survey.clean$invalid.answers<-cbind(rep("empty",6))
+survey.clean
+
+for(i in 1:nrow(survey.clean)){
+  x=0
+    for(j in 1:ncol(survey.clean)){
+      if(survey.clean[i,j]=="NA"){
+        x=x+1
+      }
+      survey.clean[i, ncol(survey.clean)] <- x
+    }
+}
+
+
+
