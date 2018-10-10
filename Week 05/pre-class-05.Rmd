@@ -98,6 +98,7 @@ bmi     Body Mass Index
 A. Create a function called standardize.me() that takes a numeric vector as an argument, and returns the standardized version of the vector. 
 #A
 # Standardizing a variable means subtracting the mean, and then dividing by the standard deviation.
+```{R}
 standardize.me<-function(x){
   if(is.numeric(x)){
     for(i in 1:ncol(x)){
@@ -109,18 +110,23 @@ standardize.me<-function(x){
       }
     }
   }
-  
+```  
 B. Assign all the numeric columns of the original WCGS dataset to a new dataset called WCGS.new.
 #B
+```{R}
+
 library(dplyr)
 WCGS.new<-select_if(wcgs, is.numeric)
 WCGS.new
-
+```
 C. Using a loop and your new function, standardize all the variables WCGS.new dataset.
 #C 
+```{R}
+
 for(i in 1:ncol(WCGS.new)){
 WCGS.new[,i] <- standardize.me(WCGS.new[,i])
 }
+```
 
 D. What should the mean and standard deviation of all your new standardized variables be? Test your prediction by running a loop
   
@@ -128,6 +134,8 @@ D. What should the mean and standard deviation of all your new standardized vari
 ### Question 2: Looping to Calculate
 
 A. Using a loop, calculate the mean weight of the subjects separated by the type of CHD they have.
+```{R}
+
 noCHDCount = 0
 MIorSDCount = 0
 silentMICount = 0
@@ -159,9 +167,12 @@ if(wcgs$typchd69[i] == "no CHD"){
   meanAngina = anginaWeight/anginaCount
 }
 }
-
+```
 
 B. Now do the same thing, but now don’t use a loop
+```{R}
+
 wcgs %>%
 group_by(typchd69) %>%
 summarise(mean(weight))
+```
