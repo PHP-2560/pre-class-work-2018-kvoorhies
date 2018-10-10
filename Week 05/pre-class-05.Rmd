@@ -100,14 +100,16 @@ A. Create a function called standardize.me() that takes a numeric vector as an a
 # Standardizing a variable means subtracting the mean, and then dividing by the standard deviation.
 standardize.me<-function(x){
   if(is.numeric(x)){
-    for(i in 1:length(x)){    
-      y[i] <- (x[i]-mean(x))/sd(x)
-    }
-    print(y)
+    for(i in 1:ncol(x)){
+    meanX <- mean(x[,i])
+    sdX <-sd(x[,i])
+      for(j in 1:nrow(x)){
+        x[j,i] <- (x[j,i]-meanX)/sdX
+        }
+      }
     }
   }
   
-
 B. Assign all the numeric columns of the original WCGS dataset to a new dataset called WCGS.new.
 #B
 library(dplyr)
@@ -115,11 +117,51 @@ WCGS.new<-select_if(wcgs, is.numeric)
 WCGS.new
 
 C. Using a loop and your new function, standardize all the variables WCGS.new dataset.
+#C 
+for(i in 1:ncol(WCGS.new)){
+WCGS.new[,i] <- standardize.me(WCGS.new[,i])
+}
+
 D. What should the mean and standard deviation of all your new standardized variables be? Test your prediction by running a loop
   
 
 ### Question 2: Looping to Calculate
 
 A. Using a loop, calculate the mean weight of the subjects separated by the type of CHD they have.
-B. Now do the same thing, but now don’t use a loop
+noCHDCount = 0
+MIorSDCount = 0
+silentMICount = 0
+anginaCount = 0
+noCHDWeight = 0
+MIorSDWeight = 0
+silentMIWeight = 0
+anginaWeight = 0
 
+for(i in 1:nrow(wcgs)){
+if(wcgs$typchd69[i] == "no CHD"){
+  noCHDCount = noCHDCount+1
+  noCHDWeight = wcgs$weight[i] + noCHDWeight
+  meanNoCHD = noCHDWeight/noCHDCount
+  
+} else if(wcgs$typchd69[i] == "MI or SD"){
+  MIorSDCount = MIorSDCount +1
+  MIorSDWeight = MIorSDWeight + wcgs$weight[i]
+  meanMIorSD = MIorSDWeight/MIorSDCount
+  
+} else if(wcgs$typchd69[i] == "silent MI"){
+  silentMICount = silentMICount + 1
+  silentMIWeight = silentMIWeight + wcgs$weight[i]
+  meanSilentMI = silentMIWeight/silentMICount
+  
+} else if (wcgs$typchd69[i] == "angina"){
+  anginaCount = anginaCount +1
+  anginaWeight = anginaWeight + wcgs$weight[i]
+  meanAngina = anginaWeight/anginaCount
+}
+}
+
+
+B. Now do the same thing, but now don’t use a loop
+wcgs %>%
+group_by(typchd69) %>%
+summarise(mean(weight))
