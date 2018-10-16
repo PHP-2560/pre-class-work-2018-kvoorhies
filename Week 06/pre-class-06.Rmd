@@ -13,14 +13,20 @@ knitr::opts_chunk$set(echo = TRUE)
 1. Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
 
 ```
-f1 <- function(string, prefix) {
+# naming the f1 function matchedPrefix because it takes a string and prefix, and based on the number of characters in prefix value, determines if the prefix matches the prefix of the string.
+
+matchedPrefix <- function(string, prefix) {
   substr(string, 1, nchar(prefix)) == prefix
 }
-f2 <- function(x) {
+
+#renaming f2 as removeLastElement, since it removes the last element.
+removeLastElement <- function(x) {
   if (length(x) <= 1) return(NULL)
   x[-length(x)]
 }
-f3 <- function(x, y) {
+
+#renaming function f3 replicateNTimes because it uses the rep function to replicate y the length of x times.
+replicateNTimes <- function(x, y) {
   rep(y, length.out = length(x))
 }
 ```
