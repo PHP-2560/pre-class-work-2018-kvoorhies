@@ -31,14 +31,19 @@ replicateNTimes <- function(x, y) {
 2. Compare and contrast rnorm() and MASS::mvrnorm(). How could you make them more consistent?
 
 ```{r}
+rnorm
+MASS::mvrnorm
 
+?rnorm
+?mvrnorm
 
 ```
 
 3. Use `lapply()` and an anonymous function to find the coefficient of variation (the standard deviation divided by the mean) for all columns in the mtcars dataset. 
 
 ```{r}
-
+#using lapply to apply a function that finds the coefficient of variation for all columns in dataset
+lapply(mtcars, function(x) sd(x)/mean(x))
 
 ```
 
@@ -47,6 +52,15 @@ replicateNTimes <- function(x, y) {
     b. Compute the standard deviation of every numeric column in a mixed data frame. (Hint: you’ll need to use vapply() twice.)
     
 ```{r}
+df <- data.frame(col1 = c(1, 2, 3, 4, 5, 6, 7, 8), col2 = c(5, 6, 2, 6, 4, 1, 3, 1), col3 = c(3, 4, 8, 5, 7, 1, 9, 10))
 
+# SD of every column in the numeric data frame df
+vapply(df, FUN=sd, numeric(1))
+
+df2 <- data.frame(col1 = c(1, 2, 3, 4, 5, 6, 7, 8), col2 = c(5, 6, 2, 6, 4, 1, 3, 1), col3 = c(3, 4, 8, 5, 7, 1, 9, 10), col4 = c("a", "b", "c", "c", "b", "b","a", "b"))
+
+# checks which columns are numeric for df2, and then finds sd for those columns of df2
+v1 <- vapply(df2, is.numeric, logical(1))
+vapply(df2[,v1], sd, numeric(1))
 
 ```
