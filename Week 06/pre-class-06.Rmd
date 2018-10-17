@@ -34,9 +34,18 @@ replicateNTimes <- function(x, y) {
 rnorm
 MASS::mvrnorm
 
+#rnorm has default values for mean and sd, not for n
+#mvrnorm has default values for n, tol, empirical and EISPACK
+#mvrnorn does not have default values for mu and sigma
+# we could get rid of EISPACK from mvrnorm as it looks like it was used in an older version but no longer used.
+# this would mean the only extra input between the two is tol and empirical
+# mvrnorm has more stop statements that rnorm -- if checks for positive sigma, etc. were removed this would simplify the function and make it more similar to rnorm.
+# it looks like the call in rnorm is to pass objects to C code. mvrnorm doesn't have a call to C
+
+
 ?rnorm
 ?mvrnorm
-
+?.Call
 ```
 
 3. Use `lapply()` and an anonymous function to find the coefficient of variation (the standard deviation divided by the mean) for all columns in the mtcars dataset. 
