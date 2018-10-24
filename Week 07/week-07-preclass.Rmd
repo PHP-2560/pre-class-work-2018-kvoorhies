@@ -40,7 +40,7 @@ With this project we will simulate a famoues probability problem. This will not 
 fair_game()
   tracker
   
-  #fair_game is the function that calculates whether after 100 bets, you have "busted"
+#fair_game is the function that calculates whether after n = 100 bets (can change n value but default is 100), you have "busted". 
   fair_game <- function(bankroll=1000, bet=100, n = 100) {
      for(i in 1:n){
         bankroll <- (bankroll - bet)
@@ -71,13 +71,14 @@ for(i in 1:length(check)){
   }
 }
 count
-#Probability busted: (about 37%)
+#Probability busted: (about 37% when I ran it)
 count/length(check)
 
 ```    
     b. the probability that you have busted by the time you have placed your five hundredth bet by simulating the outcome directly. 
     
 ```{r}
+# doing a second simulation, this time with fair_game n = 500
 check2 <- replicate(5000, fair_game(bankroll = 1000, bet = 100, n = 500))
 
 #this for loop will count the # of times "busted" in simulation
@@ -89,14 +90,15 @@ for(i in 1:length(check2)){
 }
 
 count
-#Probability busted: (about 68%)
+
+#Probability busted: (about 68% when I ran it)
 count/length(check)
 
 ```
     c. the mean time you go bust, given that you go bust within the first 5000 hands.
     
 ```{r}
-
+# meanTimeBust is a function that returns when you went bust, or if you did not bust that you "Won"
 meanTimeBust <- function(bankroll=1000, bet=100, n = 5000) {
      for(i in 1:n){
         bankroll <- (bankroll - bet)
@@ -114,6 +116,7 @@ meanTimeBust <- function(bankroll=1000, bet=100, n = 5000) {
      }
    return(tracker)}
 
+# replicate meanTimeBust function 5000 times
 findMean<-replicate(5000, meanTimeBust())
 
 #keep only non-"Won" values
@@ -124,7 +127,7 @@ for(i in 1:length(findMean)){
   }
 }
 
-#find mean (467 when I ran it)
+#find mean (mean was 467 when I ran it)
 mean(as.numeric(bustedMean))
 
 
@@ -134,6 +137,7 @@ mean(as.numeric(bustedMean))
     
 ```{r}
 
+# define function that returns bankroll after n hands.
 timeBust <- function(bankroll=1000, bet=100, n = 100) {
      for(i in 1:n){
         bankroll <- (bankroll - bet)
@@ -151,6 +155,7 @@ timeBust <- function(bankroll=1000, bet=100, n = 100) {
      }
    return(tracker)}
 
+#simulate new function 5000 times
 findMeanVar<-replicate(5000, timeBust())
 findMeanVar
 
@@ -165,7 +170,7 @@ varBankroll
     e. the mean and variance of your bankroll after 500 hands (including busts).
     
 ```{r}
-
+# use previously defined function with 500 hands (n = 500)
 findMeanVar500Hands <- replicate(5000, timeBust(bankroll=1000, bet=100, n = 500))
 
 #find mean and varaince of bankroll
