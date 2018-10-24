@@ -37,8 +37,6 @@ With this project we will simulate a famoues probability problem. This will not 
     bankroll = 1000
     bet = 100
     tracker <- c()
-fair_game()
-  tracker
   
 #fair_game is the function that calculates whether after n = 100 bets (can change n value but default is 100), you have "busted". 
   fair_game <- function(bankroll=1000, bet=100, n = 100) {
@@ -61,7 +59,6 @@ fair_game()
 #check is our simulation of 5000 iterations of the game.  
 check <- c()   
 check <- replicate(5000, fair_game())
-check
 
 #this for loop will count the # of times "busted" in simulation
 count <- 0
@@ -157,7 +154,6 @@ timeBust <- function(bankroll=1000, bet=100, n = 100) {
 
 #simulate new function 5000 times
 findMeanVar<-replicate(5000, timeBust())
-findMeanVar
 
 #find mean and variance of bankroll
 meanBankroll <- mean(findMeanVar)
