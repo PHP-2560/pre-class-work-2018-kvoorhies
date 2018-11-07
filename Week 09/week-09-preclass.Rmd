@@ -125,7 +125,24 @@ html_text(bpb)
 
 10. Get the links of all of the “svg” images on the web page.
 
-```{r}
+```{r} 
+#unable to get links but got the .svg images seperated from other images from web page
+
+# gets img nodes where 
+svg_images <- html_nodes(webpage, "img") %>%
+  html_attrs()
+
+svg <- data.frame(matrix(unlist(svg_images), nrow =14))
+svg
+# pick out only images saved as .svg
+svg_only <- data.frame()
+
+for(i in 1:nrow(svg)){
+  if(substr(svg[i,1], nchar(as.character(svg[i,1]))-2, nchar(as.character(svg[i,1]))) == "svg"){
+  svg_only[nrow(svg_only)+1, 1] <- svg[i,1]
+}}
+#prints the two svg images info
+svg_only
 
 
 ```
