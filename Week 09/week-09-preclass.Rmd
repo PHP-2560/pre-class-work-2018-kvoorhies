@@ -107,6 +107,25 @@ lnText[6]
 
 8. To understand the structure of the data in a web page, it is often useful to know what the underlying attributes are of the text you see.
 Extract the attributes (and their values) of the HTML element that holds the timestamp underneath the “What’s Moving” table.
+
+```{r}
+# use html_nodes to get correct table and then html_attrs to find attributes/values 
+stock_selectors <- html_nodes(webpage, ".wsod_fLeft")
+stock_selectors[4]%>%
+html_attrs()
+
+```
+
 9. Extract the values of the blue percentage-bars from the “Trending Tickers” table (bottom right of the web page.)
 Hint: in this case, the values are stored under the “class” attribute.
+```{r}
+bpb <- html_nodes(webpage, ".mod-mostpop.trendingTickers")
+html_text(bpb)
+```
+
 10. Get the links of all of the “svg” images on the web page.
+
+```{r}
+
+
+```
