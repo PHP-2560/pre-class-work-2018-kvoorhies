@@ -30,6 +30,9 @@ library(stringr)
 library(rebus)     
 library(lubridate)
 library(dplyr)
+library(XML)
+library(RCurl)
+
 
 # assigned cnn market website to variable webpage
 url <- "https://money.cnn.com/data/us_markets/"
@@ -50,23 +53,58 @@ print(session_dtls)
 ```{r}
 # wsod_fLeft is where stock sectors is located
 stock_selectors <- html_nodes(webpage, ".wsod_fLeft")
-
+# selects names of stocks from 3 month % change table
+urlData <- getURL(url)
+dataSectorNames <- readHTMLTable(urlData, which = 2)
+dataSectorNames[1]
 ```
 4. Extract all of the “3 Month % Change” values from the “Stock Sectors” table.
 ```{r}
-stock <- html_text(stock_selectors[4])
-stock
+# selects the 3 month % change table
+urlData <- getURL(url)
+data3Month <- readHTMLTable(urlData, which = 2)
+data3Month
 ```
 
 5. Extract the table “What’s Moving” (top middle of the web page) into a data-frame.
 ```{r}
-
+# takes the first table, which is the what's moving table, and puts it into a data frame.
+urlData <- getURL(url)
+dataMovingTable <- readHTMLTable(urlData, which = 1)
+dataMovingTable
 
 ```
 
 6. Re-construct all of the links from the first column of the “What’s Moving” table.
 Hint: the base URL is “https://money.cnn.com”
+
+```{r}
+# Wasn't able to figure this one out. 
+tableOfInterest <- readHTMLTable(urlData, which = 1)
+
+columnLinks <- webpage %>%
+  html_nodes(css = "#wsod_whatsMoving") %>%
+  html_attr("href")
+columnLinks2 <- paste(columnLinks, sep = '')
+columnLinks2
+
+dataLinks <- readHTMLTable(urlData, which = 1)
+dataDF
+
+```
+
 7. Extract the titles under the “Latest News” section (bottom middle of the web page.)
+
+```{r}
+# uses [6] to limit to just the titles under latest news
+Latest_News <- html_nodes(webpage, ".wsod_fRight")
+lnText <- html_text(Latest_News) %>%
+  map(1)
+lnText[6]
+
+
+```
+
 8. To understand the structure of the data in a web page, it is often useful to know what the underlying attributes are of the text you see.
 Extract the attributes (and their values) of the HTML element that holds the timestamp underneath the “What’s Moving” table.
 9. Extract the values of the blue percentage-bars from the “Trending Tickers” table (bottom right of the web page.)
